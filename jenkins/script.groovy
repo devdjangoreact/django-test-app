@@ -66,7 +66,7 @@ def deployApp() {
         sh '''
         #!/bin/bash
         ssh -o StrictHostKeyChecking=no ubuntu@ec2-35-173-231-122.compute-1.amazonaws.com
-        sudo chmod 666 /var/run/docker.sock -y
+
         docker run -p 80:80 -d nginx/nginx:latest
         '''
     }
