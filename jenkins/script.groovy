@@ -62,17 +62,13 @@ def deployApp() {
     //     '''
 
     // sh 'docker stack deploy -c production.yml cosmetic'
-    sshagent(['ec2-jekins']) {
-        sh '''
-        #!/bin/bash
-
-        ssh -o StrictHostKeyCheking=no ubuntu@ec2-35-173-231-122.compute-1.amazonaws.com
-
-        docker run -p 80:80 -d nginx/nginx:latest
-        
-        '''
-
-    }
+    // sshagent(['ec2-jekins']) {
+    //     sh '''
+    //     #!/bin/bash
+    //     ssh -o StrictHostKeyCheking=no ubuntu@ec2-35-173-231-122.compute-1.amazonaws.com
+    //     docker run -p 80:80 -d nginx/nginx:latest
+    //     '''
+    // }
 } 
 
 return this
