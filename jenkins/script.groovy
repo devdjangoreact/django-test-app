@@ -62,7 +62,7 @@ def deployApp() {
     //     '''
 
     // sh 'docker stack deploy -c production.yml cosmetic'
-    def dockerimage='docker run -p 80:80 -d nginx/nginx:latest'
+    def dockerimage='docker run -p 80:80 -d nginx'
 
     sshagent(['ec2-jekins']) {
         sh "ssh -o StrictHostKeyChecking=no ubuntu@ec2-35-173-231-122.compute-1.amazonaws.com ${dockerimage}"
