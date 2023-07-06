@@ -37,13 +37,13 @@ def deployApp() {
             writeFile file: '.env', text: readFile(env_test_aws)
         }
 
-    def dockerimage='chmod +r .env && docker compose -f docker-compose.prod-deploy.yml build \
-     && docker compose -f docker-compose.prod-deploy.yml up -d'
+    def shellCmd = "bash ./server-cmds.sh ${IMAGE_django_web} ${IMAGE_nginx_proxy}"
     def ec2instans = 'ubuntu@35.173.231.122'
     sshagent(['ec2-jekins']) {
         sh "scp .env ${ec2instans}:/home/ubuntu"
+        sh "scp server-cmds.sh ${ec2instans}:/home/ubuntu"
         sh "scp docker-compose.prod-deploy.yml ${ec2instans}:/home/ubuntu"
-        sh "ssh -o StrictHostKeyChecking=no ${ec2instans} ${dockerimage}"
+        sh "ssh -o StrictHostKeyChecking=no ${ec2instans} ${shellCmd}"
     }
 } 
 
