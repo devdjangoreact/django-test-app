@@ -38,14 +38,13 @@ def deployApp() {
         }
 
 
-    def shellCmd = "bash ./server-cmds.sh ${IMAGE_django_web} ${IMAGE_nginx_proxy}"
-    def chmodfiles = "chmod +r .env && chmod +r server-cmds.sh"
+    def shellCmd = "chmod +r .env && chmod +r server-cmds.sh && bash ./server-cmds.sh ${IMAGE_django_web} ${IMAGE_nginx_proxy}"
     def ec2instans = 'ubuntu@35.173.231.122'
     sshagent(['ec2-jekins']) {
         sh "scp .env ${ec2instans}:/home/ubuntu"
         sh "scp docker-compose.prod-deploy.yml ${ec2instans}:/home/ubuntu"
         sh "cd jenkins && scp server-cmds.sh ${ec2instans}:/home/ubuntu"
-        sh "ssh -o StrictHostKeyChecking=no ${ec2instans} ${chmodfiles} ${shellCmd}"
+        sh "ssh -o StrictHostKeyChecking=no ${ec2instans} ${shellCmd}"
     }
 } 
 
