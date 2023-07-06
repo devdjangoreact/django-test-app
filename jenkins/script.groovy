@@ -44,9 +44,9 @@ def deployApp() {
     && docker compose -f docker-compose.prod-deploy.yml up -d"
     def ec2instans = 'ubuntu@35.173.231.122'
     sshagent(['ec2-jekins']) {
-        sh "scp -o StrictHostKeyChecking=no .env ${ec2instans}:/home/ubuntu/app/.env"
-        sh "scp -o StrictHostKeyChecking=no docker-compose.prod-deploy.yml ${ec2instans}:/home/ubuntu/app/docker-compose.prod-deploy.yml"
-        sh "cd jenkins && scp -o StrictHostKeyChecking=no server-cmds.sh ${ec2instans}:/home/ubuntu/app/server-cmds.sh"
+        sh "scp -o StrictHostKeyChecking=no .env ${ec2instans}:/home/ubuntu/app"
+        sh "scp -o StrictHostKeyChecking=no docker-compose.prod-deploy.yml ${ec2instans}:/home/ubuntu/app"
+        sh "cd jenkins && scp -o StrictHostKeyChecking=no server-cmds.sh ${ec2instans}:/home/ubuntu/app"
         sh "ssh -o StrictHostKeyChecking=no ${ec2instans} ${shellCmd}"
     }
 } 
