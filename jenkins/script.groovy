@@ -20,7 +20,7 @@ def buildImage() {
 
         sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
         sh "docker push ${IMAGE_nginx_proxy}"
-        sh "docker push ${IMAGE_nginx_proxy}"
+        sh "docker push ${IMAGE_django_web}"
     }
 } 
 
