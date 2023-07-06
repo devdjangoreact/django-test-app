@@ -29,8 +29,8 @@ def buildImage() {
 def deployApp() {
     echo 'deploying the application...'
 
-    def IMAGE_django_web = System.getenv('IMAGE_django_web')
-    def IMAGE_nginx_proxy = System.getenv('IMAGE_nginx_proxy')
+    def IMAGE_django_web = env.IMAGE_django_web
+    def IMAGE_nginx_proxy = env.IMAGE_nginx_proxy
 
     // cosmetic
     withCredentials([
