@@ -38,7 +38,7 @@ def deployApp() {
         }
 
 
-    def shellCmd = "chmod +r -R app && cd /app && export IMAGE_django_web=${IMAGE_django_web} \
+    def shellCmd = "chmod +r -R app && cd app && export IMAGE_django_web=${IMAGE_django_web} \
     && export IMAGE_nginx_proxy=${IMAGE_nginx_proxy} \
     && docker compose -f docker-compose.prod-deploy.yml build \
     && docker compose -f docker-compose.prod-deploy.yml up -d"
