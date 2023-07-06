@@ -40,7 +40,7 @@ def deployApp() {
         }
 
     def dockerimage='docker compose -f docker-compose.prod.yml up -d --build'
-    def ec2instans = 'ubuntu@ec2-35-173-231-122.compute-1.amazonaws.com'
+    def ec2instans = 'ubuntu@35.173.231.122'
     sshagent(['ec2-jekins']) {
         sh "scp .env ${ec2instans}/home/ubuntu"
         sh "scp docker-compose.prod.yml ${ec2instans}/home/ubuntu"
