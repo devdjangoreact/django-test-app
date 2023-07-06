@@ -20,8 +20,8 @@ def buildImage() {
 
         sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
         sh "docker tag nginx-proxy ${IMAGE_nginx_proxy}"
-        sh "docker push ${IMAGE_django_web}"
-        sh "docker tag nginx-proxy ${IMAGE_django_web}"
+        sh "docker push ${IMAGE_nginx_proxy}"
+        sh "docker tag nginx-proxy ${IMAGE_nginx_proxy}"
         sh "docker push ${IMAGE_nginx_proxy}"
     }
 } 
