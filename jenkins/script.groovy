@@ -19,9 +19,7 @@ def buildImage() {
     withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
 
         sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
-        // sh "docker tag nginx-proxy ${IMAGE_nginx_proxy}"
         sh "docker push ${IMAGE_nginx_proxy}"
-        // sh "docker tag nginx-proxy ${IMAGE_nginx_proxy}"
         sh "docker push ${IMAGE_nginx_proxy}"
     }
 } 
@@ -42,7 +40,7 @@ def deployApp() {
     def dockerimage='docker compose -f docker-compose.prod.yml up -d --build'
     def ec2instans = 'ubuntu@35.173.231.122'
     sshagent(['ec2-jekins']) {
-        sh "scp .env ${ec2instans}:/home/ubuntu && chmod 775 .env"
+        sh "scp .env ${ec2instans}:/home/ubuntu && chmod +r /home/ubuntu/.env"
         sh "scp docker-compose.prod.yml ${ec2instans}:/home/ubuntu"
         sh 'ls -a'
         sh "ssh -o StrictHostKeyChecking=no ${ec2instans} ${dockerimage}"
