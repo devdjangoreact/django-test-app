@@ -39,7 +39,7 @@ def deployApp() {
 
 
     def shellCmd = "chmod +r .env && export IMAGE_django_web=${IMAGE_django_web} \
-    && export IMAGE_nginx_proxy${IMAGE_nginx_proxy} \
+    && export IMAGE_nginx_proxy=${IMAGE_nginx_proxy} \
     && docker compose -f docker-compose.prod-deploy.yml up --detach"
     def ec2instans = 'ubuntu@35.173.231.122'
     sshagent(['ec2-jekins']) {
