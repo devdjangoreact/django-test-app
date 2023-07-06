@@ -37,7 +37,7 @@ def deployApp() {
             writeFile file: '.env', text: readFile(env_test_aws)
         }
 
-    def dockerimage='chmod +r .env && docker compose -f docker-compose.prod-deploy.yml up -d --build --pull'
+    def dockerimage='chmod +r .env && docker compose -f docker-compose.prod-deploy.yml up -d --build --pull web nginx-proxy'
     def ec2instans = 'ubuntu@35.173.231.122'
     sshagent(['ec2-jekins']) {
         sh "scp .env ${ec2instans}:/home/ubuntu"
