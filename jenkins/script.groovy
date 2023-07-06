@@ -38,7 +38,7 @@ def deployApp() {
         }
 
 
-    def shellCmd = "ls -a && chmod +r .env && bash server-cmds.sh ${IMAGE_django_web} ${IMAGE_nginx_proxy}"
+    def shellCmd = "ls -a && chmod +r .env && bash ./server-cmds.sh ${IMAGE_django_web} ${IMAGE_nginx_proxy}"
     def ec2instans = 'ubuntu@35.173.231.122'
     sshagent(['ec2-jekins']) {
         sh "scp .env ${ec2instans}:/home/ubuntu"
