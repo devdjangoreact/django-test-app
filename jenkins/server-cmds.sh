@@ -3,7 +3,7 @@
 export IMAGE_django_web=$1
 export IMAGE_nginx_proxy=$2
 
-chmod +r /home/ubuntu/.env
+chmod +r .env
 
 docker compose -f docker-compose.prod-deploy.yml up --detach
 echo "success"

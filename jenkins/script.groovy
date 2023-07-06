@@ -38,10 +38,12 @@ def deployApp() {
         }
 
 
-    def shellCmd = "chmod +r -R app && cd app && export IMAGE_django_web=${IMAGE_django_web} \
-    && export IMAGE_nginx_proxy=${IMAGE_nginx_proxy} \
-    && docker compose -f docker-compose.prod-deploy.yml build \
-    && docker compose -f docker-compose.prod-deploy.yml up -d"
+    // def shellCmd = "chmod +r -R app && cd app && export IMAGE_django_web=${IMAGE_django_web} \
+    // && export IMAGE_nginx_proxy=${IMAGE_nginx_proxy} \
+    // && docker compose -f docker-compose.prod-deploy.yml build \
+    // && docker compose -f docker-compose.prod-deploy.yml up -d"
+
+    def shellCmd = "bash ./app/server-cmds.sh ${IMAGE_django_web} ${IMAGE_nginx_proxy}"
     def ec2instans = 'ubuntu@35.173.231.122'
     sshagent(['ec2-jekins']) {
         sh "scp -o StrictHostKeyChecking=no .env ${ec2instans}:/home/ubuntu/app"
