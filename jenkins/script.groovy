@@ -14,8 +14,8 @@ def buildImage() {
 
     sh 'docker compose -f docker-compose.prod.yml build web nginx-proxy'
 
-    def IMAGE_django_web = System.getenv('IMAGE_django_web')
-    def IMAGE_nginx_proxy = System.getenv('IMAGE_nginx_proxy')
+    def IMAGE_django_web = env.IMAGE_django_web
+    def IMAGE_nginx_proxy = env.IMAGE_nginx_proxy
     withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
 
         sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
