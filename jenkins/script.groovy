@@ -12,7 +12,7 @@ def buildImage() {
             writeFile file: '.env', text: readFile(env_test_aws)
         }
 
-    sh 'docker compose -f production.yml build web nginx-proxy'
+    sh 'docker compose -f docker-compose.prod.yml build web nginx-proxy'
 
     def IMAGE_django_web = System.getenv('IMAGE_django_web')
     def IMAGE_nginx_proxy = System.getenv('IMAGE_nginx_proxy')
