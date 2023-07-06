@@ -6,7 +6,10 @@ pipeline {
     agent {
         label 'developer'
     }
-
+    environment {
+        IMAGE_django_web = 'djangoreactdev/django-web:1.0'
+        IMAGE_nginx_proxy = 'djangoreactdev/nginx-proxy:1.0'
+    }
     stages {
         stage("init") {
             steps {
