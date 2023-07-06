@@ -42,7 +42,7 @@ def deployApp() {
     def dockerimage='docker compose -f docker-compose.prod.yml up -d --build'
     def ec2instans = 'ubuntu@35.173.231.122'
     sshagent(['ec2-jekins']) {
-        sh "scp .env ${ec2instans}:/home/ubuntu && chmod 777 .env"
+        sh "scp .env ${ec2instans}:/home/ubuntu && sudo chmod 775 .env -y"
         sh "scp docker-compose.prod.yml ${ec2instans}:/home/ubuntu"
         sh 'ls -a'
         sh "ssh -o StrictHostKeyChecking=no ${ec2instans} ${dockerimage}"
