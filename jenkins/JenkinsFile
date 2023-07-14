@@ -40,7 +40,7 @@ pipeline {
             }
             steps {
                 script {
-                    dir('terraform') {
+                    dir('terraform/on_ec2/dev') {
                         sh "terraform init"
                         sh "terraform apply --auto-approve"
                         env.EC2_PUBLIC_IP = sh(

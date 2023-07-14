@@ -27,8 +27,16 @@ terraform {
   }
 }
 
+terraform {
+  backend "s3" {
+    bucket = "remote-tf-django-test-app"    // Bucket where to SAVE Terraform State
+    key    = "on_ec2/dev/terraform.tfstate" // Object name in the bucket to SAVE Terraform State
+    region = "us-east-1"                    // Region where bycket created
+  }
+}
+
 module "vpc_module" {
-  source               = "../modules/aws_network"
+  source               = "../../modules/aws_network"
   env                  = var.env
   vpc_cidr             = var.vpc_cidr
   public_subnet_cidrs  = var.public_subnet_cidrs
@@ -36,13 +44,13 @@ module "vpc_module" {
 }
 
 module "security_group_module" {
-  source = "../modules/aws_security_group"
+  source = "../../modules/aws_security_group"
   env    = var.env
   vpc_id = module.vpc_module.vpc_id
 }
 
 module "ec2_module" {
-  source             = "../modules/aws_ec2"
+  source             = "../../modules/aws_ec2"
   env                = var.env
   instance_type      = var.instance_type
   security_group_id  = module.security_group_module.security_group_id
@@ -51,7 +59,7 @@ module "ec2_module" {
 }
 
 # module "asg_elb_module" {
-#   source             = "../modules/aws_asg_elb"
+#   source             = "../../modules/aws_asg_elb"
 #   env                = var.env
 #   instance_type      = var.instance_type
 #   count_ec2_instance = var.count_ec2_instance
@@ -61,7 +69,7 @@ module "ec2_module" {
 # }
 
 # module "aws_eks_module" {
-#   source          = "../modules/aws_eks"
+#   source          = "../../modules/aws_eks"
 #   env             = var.env
 #   instance_type   = var.instance_type
 #   public_subnets  = module.vpc_module.public_subnet_ids
