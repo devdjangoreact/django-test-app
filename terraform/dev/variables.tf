@@ -24,5 +24,5 @@ variable "instance_type" {
 }
 
 variable "count_ec2_instance" {
-  default = 2
+  default = 1
 }

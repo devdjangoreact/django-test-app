@@ -12,8 +12,6 @@ data "aws_ami" "latest_amazon_linux" {
   }
 }
 
-data "aws_availability_zones" "available" {}
-
 resource "aws_launch_template" "web" {
   name                   = "WebServer-Highly-Available-LT-${var.env}"
   image_id               = data.aws_ami.latest_amazon_linux.id

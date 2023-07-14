@@ -29,6 +29,7 @@ def deployApp() {
 
     def IMAGE_django_web = env.IMAGE_django_web
     def IMAGE_nginx_proxy = env.IMAGE_nginx_proxy
+    def EC2_PUBLIC_IP = env.EC2_PUBLIC_IP
 
     // cosmetic
     withCredentials([
@@ -44,7 +45,7 @@ def deployApp() {
     // && docker compose -f docker-compose.prod-deploy.yml up -d"
 
     def shellCmd = "bash ./app/server-cmds.sh ${IMAGE_django_web} ${IMAGE_nginx_proxy}"
-    def ec2instans = 'ubuntu@35.173.231.122'
+    def ec2instans = "ubuntu@${EC2_PUBLIC_IP}"
     sshagent(['ec2-jekins']) {
         sh "scp -o StrictHostKeyChecking=no .env ${ec2instans}:/home/ubuntu/app"
         sh "scp -o StrictHostKeyChecking=no docker-compose.prod-deploy.yml ${ec2instans}:/home/ubuntu/app"

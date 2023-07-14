@@ -14,3 +14,7 @@
 # output "dev_private_subnet_ids" {
 #   value = module.vpc_module.private_subnet_ids
 # }
+
+output "ec2_public_ip" {
+  value = module.ec2_module.ec2_id
+}

@@ -3,7 +3,7 @@ resource "aws_security_group" "web" {
   name   = "${var.env}-security-group"
   vpc_id = var.vpc_id
   dynamic "ingress" {
-    for_each = ["80", "443"]
+    for_each = ["80", "443", "22"]
     content {
       from_port   = ingress.value
       to_port     = ingress.value
