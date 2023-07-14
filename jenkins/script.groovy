@@ -29,7 +29,7 @@ def deployApp() {
 
     def IMAGE_django_web = env.IMAGE_django_web
     def IMAGE_nginx_proxy = env.IMAGE_nginx_proxy
-    def EC2_PUBLIC_IP = env.EC2_PUBLIC_IP
+    def EC2_PUBLIC_IP = env.EC2_PUBLIC_IP[0]
 
     // cosmetic
     withCredentials([
