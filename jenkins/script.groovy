@@ -29,6 +29,13 @@ def deployApp() {
 
     def IMAGE_django_web = env.IMAGE_django_web
     def IMAGE_nginx_proxy = env.IMAGE_nginx_proxy
+
+    withCredentials([
+            file(credentialsId: 'env_test_aws', variable: 'env_test_aws'),
+        ]) {
+            writeFile file: '.env', text: readFile(env_test_aws)
+        }
+
     def EC2_PUBLIC_IP = env.EC2_PUBLIC_IP
 
     def pattern = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/
@@ -41,14 +48,6 @@ def deployApp() {
         def ip = ''
         println "No IP address found."
     }
-
-
-
-    withCredentials([
-            file(credentialsId: 'env_test_aws', variable: 'env_test_aws'),
-        ]) {
-            writeFile file: '.env', text: readFile(env_test_aws)
-        }
 
 
     // def shellCmd = "chmod +r -R app && cd app && export IMAGE_django_web=${IMAGE_django_web} \
@@ -67,3 +66,4 @@ def deployApp() {
     }
 } 
 
+return this
