@@ -45,7 +45,7 @@ def deployApp() {
     // && docker compose -f docker-compose.prod-deploy.yml up -d"
     def USERNAME = "ec2-user"
     def shellCmd = "bash ./app/server-cmds.sh ${IMAGE_django_web} ${IMAGE_nginx_proxy}"
-    def ec2instans = "${USERNAME}@${EC2_PUBLIC_IP}"
+    def ec2instans = "ec2-user@${EC2_PUBLIC_IP}"
     sshagent(['ec2-jekins']) {
         sh "scp -o StrictHostKeyChecking=no .env ${ec2instans}:/home/${USERNAME}/app"
         sh "scp -o StrictHostKeyChecking=no docker-compose.prod-deploy.yml ${ec2instans}:/home/${USERNAME}/app"
