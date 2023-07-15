@@ -29,18 +29,19 @@ def deployApp() {
 
     def IMAGE_django_web = env.IMAGE_django_web
     def IMAGE_nginx_proxy = env.IMAGE_nginx_proxy
-    def EC2_PUBLIC_IP = env.EC2_PUBLIC_IP[0]
+    def EC2_PUBLIC_IP = env.EC2_PUBLIC_IP
 
-    def get_ip_from_array(array) {
-    for (ip in array) {
-        if (ip instanceof String) {
-        return ip
-        }
-    }
-    return null
+    def pattern = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/
+    def matcher = (EC2_PUBLIC_IP =~ pattern)
+
+    if (matcher.find()) {
+        def ip = matcher.group(1)
+        println "IP Address: $ipAddress"
+    } else {
+        def ip = ''
+        println "No IP address found."
     }
 
-    def ip = get_ip_from_array(EC2_PUBLIC_IP)
 
     // cosmetic
     withCredentials([
