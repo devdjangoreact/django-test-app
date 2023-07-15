@@ -43,7 +43,7 @@ def deployApp() {
     }
 
 
-    // cosmetic
+
     withCredentials([
             file(credentialsId: 'env_test_aws', variable: 'env_test_aws'),
         ]) {
@@ -67,4 +67,3 @@ def deployApp() {
     }
 } 
 
-return this
