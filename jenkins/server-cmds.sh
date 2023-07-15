@@ -9,5 +9,5 @@ cd app
 pwd
 ls -a
 
-docker compose -f docker-compose.prod-deploy.yml up -d --build 
+docker-compose -f docker-compose.prod-deploy.yml up -d --build 
 echo "success"
