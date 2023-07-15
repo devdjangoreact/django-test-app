@@ -38,16 +38,16 @@ def deployApp() {
 
     def EC2_PUBLIC_IP = env.EC2_PUBLIC_IP
 
-    def pattern = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/
-    def matcher = (EC2_PUBLIC_IP =~ pattern)
+    // def pattern = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/
+    // def matcher = (EC2_PUBLIC_IP =~ pattern)
 
-    if (matcher.find()) {
-        def ip = matcher.group(1)
-        println "IP Address: $ip"
-    } else {
-        def ip = ''
-        println "No IP address found."
-    }
+    // if (matcher.find()) {
+    //     def ip = matcher.group(1)
+    //     println "IP Address: $ip"
+    // } else {
+    //     def ip = ''
+    //     println "No IP address found."
+    // }
 
 
     // def shellCmd = "chmod +r -R app && cd app && export IMAGE_django_web=${IMAGE_django_web} \
@@ -56,7 +56,7 @@ def deployApp() {
     // && docker compose -f docker-compose.prod-deploy.yml up -d"
     def USERNAME = "ec2-user"
     def shellCmd = "bash ./app/server-cmds.sh ${IMAGE_django_web} ${IMAGE_nginx_proxy}"
-    def ec2instans = "ec2-user@${ip}"
+    def ec2instans = "ec2-user@${EC2_PUBLIC_IP}"
     println "IP Address: $ec2instans"
     sshagent(['ec2-jekins']) {
         sh "scp -o StrictHostKeyChecking=no .env ${ec2instans}:/home/${USERNAME}/app"
