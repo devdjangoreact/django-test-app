@@ -29,6 +29,7 @@ def deployApp() {
 
     def IMAGE_django_web = env.IMAGE_django_web
     def IMAGE_nginx_proxy = env.IMAGE_nginx_proxy
+    def EC2_PUBLIC_IP = env.EC2_PUBLIC_IP
 
     withCredentials([
             file(credentialsId: 'env_test_aws', variable: 'env_test_aws'),
@@ -36,24 +37,6 @@ def deployApp() {
             writeFile file: '.env', text: readFile(env_test_aws)
         }
 
-    def EC2_PUBLIC_IP = env.EC2_PUBLIC_IP
-
-    // def pattern = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/
-    // def matcher = (EC2_PUBLIC_IP =~ pattern)
-
-    // if (matcher.find()) {
-    //     def ip = matcher.group(1)
-    //     println "IP Address: $ip"
-    // } else {
-    //     def ip = ''
-    //     println "No IP address found."
-    // }
-
-
-    // def shellCmd = "chmod +r -R app && cd app && export IMAGE_django_web=${IMAGE_django_web} \
-    // && export IMAGE_nginx_proxy=${IMAGE_nginx_proxy} \
-    // && docker compose -f docker-compose.prod-deploy.yml build \
-    // && docker compose -f docker-compose.prod-deploy.yml up -d"
     def USERNAME = "ec2-user"
     def shellCmd = "bash ./app/server-cmds.sh ${IMAGE_django_web} ${IMAGE_nginx_proxy}"
     def ec2instans = "ec2-user@${EC2_PUBLIC_IP}"
