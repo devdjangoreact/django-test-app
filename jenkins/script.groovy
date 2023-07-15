@@ -36,7 +36,7 @@ def deployApp() {
 
     if (matcher.find()) {
         def ip = matcher.group(1)
-        println "IP Address: $ipAddress"
+        println "IP Address: $ip"
     } else {
         def ip = ''
         println "No IP address found."
